@@ -32,13 +32,14 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody()   <!-- Renders the body of the content (a view) here. -->
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - AIM Inventory - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> <!-- Use to change name in footer. -->
+            <!-- Note the 'at' symbol. It indicates razor syntax and allows us to mix C# code with HTML. -->
+            &copy; @DateTime.Now.Year - AIM Inventory - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> <!-- Use to change name in footer. -->
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
