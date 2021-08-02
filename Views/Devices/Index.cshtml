@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AIM_Inventory.Models.DeviceModel>
+
+@{
+    ViewData["Title"] = "Device List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Friendly_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IP_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serial_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MAC_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Operating_System)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Purchase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Retire)
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Friendly_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IP_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Serial_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAC_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Operating_System)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Purchase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Retire)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

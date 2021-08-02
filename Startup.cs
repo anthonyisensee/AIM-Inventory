@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataHandler;
 
 namespace AIM_Inventory
 {
@@ -24,6 +25,8 @@ namespace AIM_Inventory
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            // This is our custom DataHandler class. The Singleton initialization keeps one instance of the class always up, so that it never has to be torn down or rebuilt (until the web server turns off, of course).
+            services.AddSingleton<DataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
