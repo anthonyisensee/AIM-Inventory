@@ -2153,20 +2153,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
-      },
-      "DataHandler/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Dapper": "2.0.90",
-          "MySql.Data": "8.0.26"
-        },
-        "compile": {
-          "bin/placeholder/DataHandler.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataHandler.dll": {}
-        }
       }
     }
   },
@@ -7534,20 +7520,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
-    },
-    "DataHandler/1.0.0": {
-      "type": "project",
-      "path": "../DataHandler/DataHandler.csproj",
-      "msbuildProject": "../DataHandler/DataHandler.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "DataHandler >= 1.0.0",
+      "Dapper >= 2.0.90",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.8",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
+      "MySql.Data >= 8.0.26"
     ]
   },
   "packageFolders": {
@@ -7576,11 +7558,7 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {
-            "C:\\Users\\anthonyri\\Code\\DataHandler\\DataHandler.csproj": {
-              "projectPath": "C:\\Users\\anthonyri\\Code\\DataHandler\\DataHandler.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -7593,6 +7571,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "Dapper": {
+            "target": "Package",
+            "version": "[2.0.90, )"
+          },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[5.0.6, )"
@@ -7610,6 +7592,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[5.0.2, )"
+          },
+          "MySql.Data": {
+            "target": "Package",
+            "version": "[8.0.26, )"
           }
         },
         "imports": [
