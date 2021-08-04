@@ -1,6 +1,6 @@
 ﻿// Anthony Isensee
 // 7/30/21
-// Much of model layout and .cs features identified from: https://www.youtube.com/watch?v=bIiEv__QNxw
+// Some of model layout and .cs features identified from: https://www.youtube.com/watch?v=bIiEv__QNxw
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +12,8 @@ namespace AIM_Inventory.Models
 {
 
     // This class allows us to create a complete picture of a 'device' in code in th e control structure of our web project.
-    // Follows all fields present in inventory_local_test database & device table version 0.1
+    // Follows all fields present in inventory_local_test database & device table version 0.1.
+    // Names must be the same as the tables in the database, though lower/uppercase letters may be different.
     public class DeviceModel
     {
         // A reference to a Device's unique ID. This particular field should not be displayed, but the ID can be used to identify an object easily in code.

@@ -53,8 +53,5 @@ namespace DataHandler
                 return connection.ExecuteAsync(sql, parameters);
             }
         }
-
-
-
     }
 }

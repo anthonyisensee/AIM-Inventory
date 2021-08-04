@@ -30,10 +30,14 @@ namespace AIM_Inventory.Controllers
             string sqlStatement = "SELECT * FROM DEVICE;";
             devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, "Server=127.0.0.1;Port=3306;database=inventory_local_test;user id=local_user;password=password;");
 
-            return View(devices);
+            // Returns the default view (Index) with a list of devices.
+            // Could also be specified as:
+            return View("Index", devices);
+            //cmdcreturn View(devices);
 
         }
 
+        // Displays a field for creating a new device.
         public IActionResult Create()
         {
             return View();

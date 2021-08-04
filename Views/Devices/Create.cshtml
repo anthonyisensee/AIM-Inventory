@@ -1,0 +1,83 @@
+﻿@model AIM_Inventory.Models.DeviceModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DeviceModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Friendly_Name" class="control-label"></label>
+                <input asp-for="Friendly_Name" class="form-control" />
+                <span asp-validation-for="Friendly_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IP_Address" class="control-label"></label>
+                <input asp-for="IP_Address" class="form-control" />
+                <span asp-validation-for="IP_Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Serial_Number" class="control-label"></label>
+                <input asp-for="Serial_Number" class="form-control" />
+                <span asp-validation-for="Serial_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model_Number" class="control-label"></label>
+                <input asp-for="Model_Number" class="form-control" />
+                <span asp-validation-for="Model_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MAC_Address" class="control-label"></label>
+                <input asp-for="MAC_Address" class="form-control" />
+                <span asp-validation-for="MAC_Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Operating_System" class="control-label"></label>
+                <input asp-for="Operating_System" class="form-control" />
+                <span asp-validation-for="Operating_System" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_Purchase" class="control-label"></label>
+                <input asp-for="Date_Purchase" class="form-control" />
+                <span asp-validation-for="Date_Purchase" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_Retire" class="control-label"></label>
+                <input asp-for="Date_Retire" class="form-control" />
+                <span asp-validation-for="Date_Retire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
