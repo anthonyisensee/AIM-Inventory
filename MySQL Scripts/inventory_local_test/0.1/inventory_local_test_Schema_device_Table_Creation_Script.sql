@@ -4,7 +4,7 @@
 -- Location: Local Database
 
 -- Create schema.
-CREATE SCHEMA `inventory_local_test`; 
+-- CREATE SCHEMA `inventory_local_test`; 
 
 -- Create device table.
 CREATE TABLE `inventory_local_test`.`device` (
