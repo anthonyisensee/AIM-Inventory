@@ -1,6 +1,6 @@
 -- Anthony Isensee
 -- 7/30/21
--- Version: 0.1
+-- Version: 0.1.1
 -- Location: Local Database
 
 -- Create schema.
@@ -8,7 +8,7 @@ CREATE SCHEMA `inventory_local_test`;
 
 -- Create device table.
 CREATE TABLE `inventory_local_test`.`device` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(128) NULL,
   `friendly_name` VARCHAR(128) NULL,
   `ip_address` VARCHAR(128) NULL,
@@ -20,5 +20,4 @@ CREATE TABLE `inventory_local_test`.`device` (
   `date_purchase` DATE NULL,
   `date_retire` DATE NULL,
   PRIMARY KEY (`id`))
-COMMENT = 'A list of AIM devices. Version 0.1';
-
+COMMENT = 'A list of AIM devices. Version 0.1.1';
