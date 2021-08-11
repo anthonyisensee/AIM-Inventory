@@ -323,7 +323,6 @@ C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\AIM-Inventory.csproj.AssemblyReference.cache
 C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\AIM-Inventory.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\AIM-Inventory.AssemblyInfoInputs.cache
 C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\AIM-Inventory.AssemblyInfo.cs
@@ -445,3 +444,4 @@ C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\0.1\0.1
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\0.1\0.1.0\AIM-Inventory.runtimeconfig.json
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\0.1\0.1.0\appsettings.Development.json
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\0.1\0.1.0\appsettings.json
+C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\AIM-Inventory.csproj.AssemblyReference.cache
