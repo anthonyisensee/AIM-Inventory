@@ -94,14 +94,34 @@ namespace AIM_Inventory.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Edit()
         {
             return View("Index");
         }
 
-        public IActionResult Delete()
+        // Summary:
+        //  Deletes an entry from the device table based on a given ID.
+        // Parameters:
+        //  id: an integer representing the ID of the object to be deleted.
+        // Returns:
+        //  The list view.
+        public IActionResult Delete(int? id)    // Note that the id integer must be optional (thus the "?").
         {
-            return View("Index");
+            // Define the necessary sql string with parameters. (@ symbol is only there so string can wrap multiple lines.)
+            string sql = "delete from device where id = @id;";
+            DataAccess _data = new DataAccess();
+
+            // Use DataHandler's DataAccess class to save data to the specified database.
+            _data.SaveData(
+                sql,            // sql string
+                new { id },     // ID of the object to delete
+                "Server=127.0.0.1;Port=3306;database=inventory_local_test;user id=local_user;password=password;");  // connection string
+
+            // Returns the "Index" view. The list should reload and be updated.
+            // We must specify that we are redirecting to the "Index" since there is no "Delete" view.
+            // Also note that the RedirectToAction is necessary instead of just View("Index");
+            return RedirectToAction("Index");
         }
 
     }
