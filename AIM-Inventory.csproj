@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Compiled Versions\0.1\0.1.1\" />
+    <Folder Include="Compiled Versions\0.1.1\" />
+    <Folder Include="Compiled Versions\Blue Green Deployment\Green\" />
   </ItemGroup>
 
 </Project>
