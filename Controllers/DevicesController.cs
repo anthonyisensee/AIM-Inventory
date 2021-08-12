@@ -2,51 +2,56 @@
 // 8/6/21
 
 using AIM_Inventory.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-// usings for ExampleList
 using DataHandler;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace AIM_Inventory.Controllers
 {
     public class DevicesController : Controller
     {
+        // Summary:
+        //  This constructor allows us to pull information from our appsettings.json file, useful for application settings and database connection strings.
+        public DevicesController(IConfiguration config)
+        {
+            _config = config;
+        }
+        
+        // Variable for constructor to set whenever controller is created.
+        private readonly IConfiguration _config;
 
         // Summary:
-        //  Displays a list of devices from a database (db version 0.1)
+        //  Displays a list of devices from a database
         // Returns:
         //  A view with a list of devices.
         public IActionResult Index()
-        {
-            // Create list.
+        {            
+            // Initialize the SQL statement that is to be executed.
+            string sqlStatement = "select * from device;";
+
+            // Retrieve the database connection string from the appsettings.json file.
+            string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+            // Initialize a list to store populated device models inside of.
             List<DeviceModel> devices = new List<DeviceModel>();
 
-            // Creates an instance of our DataHandler.DataAccess class so that we may use it's functionality to populate a list with data.
+            // Create an instance of our DataAccess class so that we may use its functionality to populate a list with data.
             DataAccess _data = new DataAccess();
 
-            // TODO: Figure out a way to incorporate the connection string from appsettings.json
-            // Using the Microsoft.Extensions.Configuration class we create an instance of a config that will allow us to reference our appsettings.json to obtain our database connection string.
-            //IConfiguration _config;
-            
-            // MySQL statement to execute. 
-            string sqlStatement = "SELECT * FROM DEVICE;";
-            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, "Server=127.0.0.1;Port=3306;database=inventory_local_test;user id=local_user;password=password;");
+            // Populate the list of devices using our DataAccess logic.
+            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
 
-            // Returns the default view (Index) with a list of devices.
-            // Could also be specified as:
+            // Finally, return the default view (Index) to the user with a populated list of devices.
             return View("Index", devices);
-            //cmdcreturn View(devices);
-
         }
 
         // Summary:
         //  Displays a field for creating a new device.
         public IActionResult Create()
         {
+            // Note that the "Create" view is implied since this is the "Create" method.
+            // Thus, the "Create" view is returned automatically without it having been specified.
             return View();
         }
 
@@ -65,14 +70,19 @@ namespace AIM_Inventory.Controllers
             if (ModelState.IsValid)
             {
                 // Define the necessary sql string with parameters. (@ symbol is only there so string can wrap multiple lines.)
-                string sql = @"insert into device (id, type, friendly_name, ip_address, serial_number, model_number, mac_address, operating_system, notes, date_purchase, date_retire) 
-                                values (@id, @type, @friendly_name, @ip_address, @serial_number, @model_number, @mac_address, @operating_system, @notes, @date_purchase, @date_retire);";
+                string sqlStatement = @"insert into device (id, type, friendly_name, ip_address, serial_number, model_number, mac_address, operating_system, notes, date_purchase, date_retire) 
+                                        values (@id, @type, @friendly_name, @ip_address, @serial_number, @model_number, @mac_address, @operating_system, @notes, @date_purchase, @date_retire);";
+
+                // The connection string to be used to connect to the database. From the appsettings.json file.
+                string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+                // Initialize an instance of our DataAccess class so we may store data with it.
                 DataAccess _data = new DataAccess();
                 
                 // Use DataHandler's DataAccess class to save data to the specified database.
                 _data.SaveData(
-                    sql,                    // sql string
-                    new { id = model.ID,    // model parameters
+                    sqlStatement,                                   // sql string
+                    new { id = model.ID,                            // model parameters
                         type = model.Type, 
                         friendly_name = model.Friendly_Name, 
                         ip_address = model.IP_Address,
@@ -82,16 +92,16 @@ namespace AIM_Inventory.Controllers
                         operating_system = model.Operating_System,
                         notes = model.Notes,
                         date_purchase = model.Date_Purchase,
-                        date_retire = model.Date_Retire },   
-                    "Server=127.0.0.1;Port=3306;database=inventory_local_test;user id=local_user;password=password;");  // connection string
+                        date_retire = model.Date_Retire },
+                    connectionString);                              // connection string
 
                 // Returns the "Index" view. The new device should be populated to the list.
                 // Note that if we did not specify the "Index" view, the "Create" view would be returned instead.
                 return RedirectToAction("Index");
-
             }
 
-            return View();
+            // TODO: This should redirect to error message if model state is not valid.
+            return View("Index");
         }
 
         [HttpPost]
@@ -108,21 +118,25 @@ namespace AIM_Inventory.Controllers
         //  The list view.
         public IActionResult Delete(int? id)    // Note that the id integer must be optional (thus the "?").
         {
-            // Define the necessary sql string with parameters. (@ symbol is only there so string can wrap multiple lines.)
+            // Define the necessary sql string with parameters.
             string sql = "delete from device where id = @id;";
+
+            // The connection string to be used to connect to the database. From the appsettings.json file.
+            string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+            // Initialize an instance of our DataAccess class so we may modify data with it.
             DataAccess _data = new DataAccess();
 
             // Use DataHandler's DataAccess class to save data to the specified database.
             _data.SaveData(
                 sql,            // sql string
                 new { id },     // ID of the object to delete
-                "Server=127.0.0.1;Port=3306;database=inventory_local_test;user id=local_user;password=password;");  // connection string
+                connectionString);  // connection string
 
             // Returns the "Index" view. The list should reload and be updated.
             // We must specify that we are redirecting to the "Index" since there is no "Delete" view.
             // Also note that the RedirectToAction is necessary instead of just View("Index");
             return RedirectToAction("Index");
         }
-
     }
 }

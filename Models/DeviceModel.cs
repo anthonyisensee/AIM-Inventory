@@ -2,11 +2,8 @@
 // 7/30/21
 // Some of model layout and .cs features identified from: https://www.youtube.com/watch?v=bIiEv__QNxw
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AIM_Inventory.Models
 {
