@@ -23,27 +23,27 @@ namespace AIM_Inventory.Models
         public string Friendly_Name { get; set; }
 
         // IP Address
-        [Display(Name = "IP Address", Prompt = "XXX.XXX.XXX.XXX, for dynamic leave empty.")]
+        [Display(Name = "IP Address", Prompt = "255.255.255.255 or Dynamic")]
         [StringLength(128, ErrorMessage = "Limit of 128 characters. What are you using, IPv128?")]
         public string IP_Address { get; set; }
 
         // The type of device (for instance: server, laptop, etc.)
-        [Display(Name = "Device Type", Prompt = "Server, laptop, etc.")]
+        [Display(Name = "Device Type", Prompt = "Server, laptop, virtual machine, etc.")]
         [StringLength(128, ErrorMessage = "Limit of 128 characters.")]
         public string Type { get; set; }
 
         // Serial Number
-        [Display(Name = "Serial Number")]
+        [Display(Name = "Serial Number", Prompt = "Unique Serial Number")]
         [StringLength(128, ErrorMessage = "Limit of 128 characters. No exceptions.")]
         public string Serial_Number { get; set; }
 
         // Model Number
-        [Display(Name = "Model Number")]
+        [Display(Name = "Model Number", Prompt = "Type of Device")]
         [StringLength(128, ErrorMessage = "Limit of 128 characters. For your sake, I hope this model number really isn't that long!")]
         public string Model_Number { get; set; }
 
         // MAC Address
-        [Display(Name = "MAC Address")]
+        [Display(Name = "MAC Address", Prompt = "1A-2B-3C-4D-5E-6F")]
         [StringLength(128, ErrorMessage = "Limit of 128 characters, though you really shouldn't need that many.")]
         public string MAC_Address { get; set; }
 
@@ -54,7 +54,7 @@ namespace AIM_Inventory.Models
 
         // Notes
         [StringLength(10000, ErrorMessage = "Limit of 10,000 characters. Speak to project developers if increase is needed.")]
-        [Display(Name = "Notes")]
+        [Display(Name = "Notes", Prompt = "Further Device Details")]
         public string Notes { get; set; }
 
         // Date Purchased
