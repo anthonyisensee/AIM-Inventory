@@ -104,9 +104,83 @@ namespace AIM_Inventory.Controllers
             return View("Index");
         }
 
-        [HttpPost]
-        public IActionResult Edit()
+        // Summary:
+        //  Retrieves a single row from the database and returns a view with the row's details.
+        // Parameters:
+        //  id: The id of the device to locate.
+        // Returns:
+        //  A view with the information of the specific device.
+        public IActionResult Edit(int? id)
         {
+            // Initialize the SQL statement that is to be executed.
+            string sqlStatement = "select * from device where id = @id;";
+
+            // Retrieve the database connection string from the appsettings.json file.
+            string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+            // Initialize a list to store populated device models inside of.
+            List<DeviceModel> devices = new List<DeviceModel>();
+
+            // Create an instance of our DataAccess class so that we may use its functionality to populate a list with data.
+            DataAccess _data = new DataAccess();
+
+            // Populate the list of devices using our DataAccess logic.
+            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { id }, connectionString);
+
+            // Return the "Edit" view with the first device in the device list.
+            return View("Edit", devices[0]);
+        }
+        
+        [HttpPost]
+        public IActionResult Edit(DeviceModel model)
+        {
+            // Here we check to make sure that the model follows all the attribute rules of "DeviceModel".
+            // The "Create" view should have kept the user within the parameters, but an extra check is not a bad thing.
+            if (ModelState.IsValid)
+            {
+                // Define the necessary sql string with parameters. (@ symbol is only there so string can wrap multiple lines.)
+                string sqlStatement = @"update device 
+                                        set type = @type, friendly_name = @friendly_name, ip_address = @ip_address, 
+                                        serial_number = @serial_number, model_number = @model_number, mac_address = @mac_address, 
+                                        operating_system = @operating_system, notes = @notes, date_purchase = @date_purchase,
+                                        date_retire = @date_retire
+                                        where id = @id;";
+
+                // The connection string to be used to connect to the database. From the appsettings.json file.
+                string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+                // Initialize an instance of our DataAccess class so we may store data with it.
+                DataAccess _data = new DataAccess();
+
+                // Use DataHandler's DataAccess class to save data to the specified database.
+                _data.SaveData(
+                    sqlStatement,                                   // sql string
+                    new
+                    {
+                        id = model.ID,                            // model parameters
+                        type = model.Type,
+                        friendly_name = model.Friendly_Name,
+                        ip_address = model.IP_Address,
+                        serial_number = model.Serial_Number,
+                        model_number = model.Model_Number,
+                        mac_address = model.MAC_Address,
+                        operating_system = model.Operating_System,
+                        notes = model.Notes,
+                        date_purchase = model.Date_Purchase,
+                        date_retire = model.Date_Retire
+                    },
+                    connectionString);                              // connection string
+
+                // Returns the "Index" view. The new device should be populated to the list.
+                // Note that if we did not specify the "Index" view, the "Create" view would be returned instead.
+                return RedirectToAction("Index");
+            }
+
+            // TODO: This should redirect to error message if model state is not valid.
+            return View("Index");
+
+
+            // Return "Index" view.
             return View("Index");
         }
 

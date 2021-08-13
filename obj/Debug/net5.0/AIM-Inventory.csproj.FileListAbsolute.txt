@@ -465,3 +465,4 @@ C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\Blue Gr
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\Blue Green Deployment\Blue\0.1.1\Compiled Versions\0.1\0.1.0\AIM-Inventory.runtimeconfig.json
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\Blue Green Deployment\Blue\0.1.1\Compiled Versions\0.1\0.1.0\appsettings.Development.json
 C:\Users\anthonyri\Code\AIM-Inventory\bin\Debug\net5.0\Compiled Versions\Blue Green Deployment\Blue\0.1.1\Compiled Versions\0.1\0.1.0\appsettings.json
+C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\Razor\Views\Devices\Edit.cshtml.g.cs

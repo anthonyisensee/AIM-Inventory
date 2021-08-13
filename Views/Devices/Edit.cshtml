@@ -1,18 +1,17 @@
 ﻿@model AIM_Inventory.Models.DeviceModel
 
 @{
-    ViewData["Title"] = "Add a Device";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Edit Device</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-             @*ID should not be set or changed from anywhere in GUI.
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ID" class="control-label"></label>
                 <input asp-for="ID" class="form-control" />
                 <span asp-validation-for="ID" class="text-danger"></span>
@@ -69,7 +68,7 @@
             </div>
             <div class="form-group">
                 @*Note that the "value" field indicates the controller method to perform.*@
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
