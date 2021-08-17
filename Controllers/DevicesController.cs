@@ -17,7 +17,7 @@ namespace AIM_Inventory.Controllers
         {
             _config = config;
         }
-        
+
         // Variable for constructor to set whenever controller is created.
         private readonly IConfiguration _config;
 
@@ -26,7 +26,7 @@ namespace AIM_Inventory.Controllers
         // Returns:
         //  A view with a list of devices.
         public IActionResult Index()
-        {            
+        {
             // Initialize the SQL statement that is to be executed.
             string sqlStatement = "select * from device;";
 
@@ -78,13 +78,15 @@ namespace AIM_Inventory.Controllers
 
                 // Initialize an instance of our DataAccess class so we may store data with it.
                 DataAccess _data = new DataAccess();
-                
+
                 // Use DataHandler's DataAccess class to save data to the specified database.
                 _data.SaveData(
                     sqlStatement,                                   // sql string
-                    new { id = model.ID,                            // model parameters
-                        type = model.Type, 
-                        friendly_name = model.Friendly_Name, 
+                    new
+                    {
+                        id = model.ID,                            // model parameters
+                        type = model.Type,
+                        friendly_name = model.Friendly_Name,
                         ip_address = model.IP_Address,
                         serial_number = model.Serial_Number,
                         model_number = model.Model_Number,
@@ -92,7 +94,8 @@ namespace AIM_Inventory.Controllers
                         operating_system = model.Operating_System,
                         notes = model.Notes,
                         date_purchase = model.Date_Purchase,
-                        date_retire = model.Date_Retire },
+                        date_retire = model.Date_Retire
+                    },
                     connectionString);                              // connection string
 
                 // Returns the "Index" view. The new device should be populated to the list.
@@ -130,7 +133,13 @@ namespace AIM_Inventory.Controllers
             // Return the "Edit" view with the first device in the device list.
             return View("Edit", devices[0]);
         }
-        
+
+        // Summary:
+        //  Handles the confirm on an edit to an entry in the database.
+        // Parameters:
+        //  model: the model of the specific item to edit.
+        // Returns:
+        //  The edited list of entries.
         [HttpPost]
         public IActionResult Edit(DeviceModel model)
         {
@@ -178,10 +187,6 @@ namespace AIM_Inventory.Controllers
 
             // TODO: This should redirect to error message if model state is not valid.
             return View("Index");
-
-
-            // Return "Index" view.
-            return View("Index");
         }
 
         // Summary:
@@ -192,6 +197,34 @@ namespace AIM_Inventory.Controllers
         //  The list view.
         public IActionResult Delete(int? id)    // Note that the id integer must be optional (thus the "?").
         {
+            // Initialize the SQL statement that is to be executed.
+            string sqlStatement = "select * from device where id = @id;";
+
+            // Retrieve the database connection string from the appsettings.json file.
+            string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+            // Initialize a list to store populated device models inside of.
+            List<DeviceModel> devices = new List<DeviceModel>();
+
+            // Create an instance of our DataAccess class so that we may use its functionality to populate a list with data.
+            DataAccess _data = new DataAccess();
+
+            // Populate the list of devices using our DataAccess logic.
+            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { id }, connectionString);
+
+            // Return the default "Delete" view with the first device in the device list.
+            return View("Delete", devices[0]);
+        }
+
+        // Summary:
+        //  Retrieves a single row from the database and returns a view with the row's details.
+        // Parameters:
+        //  id: The id of the device to locate.
+        // Returns:
+        //  A view with the information of the specific device.
+        [HttpPost]
+        public IActionResult Delete(DeviceModel? model)
+        {
             // Define the necessary sql string with parameters.
             string sql = "delete from device where id = @id;";
 
@@ -201,13 +234,13 @@ namespace AIM_Inventory.Controllers
             // Initialize an instance of our DataAccess class so we may modify data with it.
             DataAccess _data = new DataAccess();
 
-            // Use DataHandler's DataAccess class to save data to the specified database.
+            // Use DataHandler's DataAccess class to delete data from the specified database.
             _data.SaveData(
-                sql,            // sql string
-                new { id },     // ID of the object to delete
-                connectionString);  // connection string
+                sql,                        // sql string
+                new { id = model.ID },      // ID of the object to delete
+                connectionString);          // connection string
 
-            // Returns the "Index" view. The list should reload and be updated.
+            //Returns the "Index" view.The list should reload and be updated.
             // We must specify that we are redirecting to the "Index" since there is no "Delete" view.
             // Also note that the RedirectToAction is necessary instead of just View("Index");
             return RedirectToAction("Index");
