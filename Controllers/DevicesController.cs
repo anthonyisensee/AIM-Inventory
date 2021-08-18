@@ -223,7 +223,7 @@ namespace AIM_Inventory.Controllers
         // Returns:
         //  A view with the information of the specific device.
         [HttpPost]
-        public IActionResult Delete(DeviceModel? model)
+        public IActionResult Delete(DeviceModel model)
         {
             // Define the necessary sql string with parameters.
             string sql = "delete from device where id = @id;";

@@ -18,9 +18,4 @@
     <PackageReference Include="MySql.Data" Version="8.0.26" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Compiled Versions\0.1.1\" />
-    <Folder Include="Compiled Versions\Blue Green Deployment\Green\" />
-  </ItemGroup>
-
 </Project>
