@@ -67,5 +67,7 @@ namespace AIM_Inventory.Models
         [Display(Name = "Date Retired")]
         [DataType(DataType.Date)]
         public DateTime? Date_Retire { get; set; }
+
+        public String ShortNotes { get; set; }
     }
 }

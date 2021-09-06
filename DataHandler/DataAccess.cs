@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using Dapper;
 
 namespace DataHandler
 {
@@ -33,17 +30,18 @@ namespace DataHandler
         }
 
         // Summary:
-        //      Allows us to quickly execute a MySQl query to our database with certain unique parameters.
+        //      Allows us to quickly execute a SQL query to our database with unique parameters. This is ideal
+        //      for insert, update, and delete operations.
         // Parameters:
         //  T:
         //      A generic object whose contents should be stored back to the database.
         //  sql:
-        //      A string containing a SQL statement, generally an insert statement.
+        //      A string containing a SQL statement.
         //  parameters:
         //      Unique parameters to be used with the SQL string.
         //  connectionString:
         //      A connection string containing the information needed to connect to a database.
-        public void SaveData<T>(string sql, T parameters, string connectionString)
+        public void ExecuteStatement<T>(string sql, T parameters, string connectionString)
         {
             using (IDbConnection connection = new MySqlConnection(connectionString))
             {

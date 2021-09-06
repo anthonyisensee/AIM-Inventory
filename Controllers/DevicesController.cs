@@ -22,13 +22,13 @@ namespace AIM_Inventory.Controllers
         private readonly IConfiguration _config;
 
         // Summary:
-        //  Displays a list of devices from a database
+        //  Displays a list of devices from a database.
         // Returns:
         //  A view with a list of devices.
         public IActionResult Index()
         {
             // Initialize the SQL statement that is to be executed.
-            string sqlStatement = "select * from device;";
+            string sqlStatement = "SELECT * FROM `device`;";
 
             // Retrieve the database connection string from the appsettings.json file.
             string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
@@ -70,8 +70,8 @@ namespace AIM_Inventory.Controllers
             if (ModelState.IsValid)
             {
                 // Define the necessary sql string with parameters. (@ symbol is only there so string can wrap multiple lines.)
-                string sqlStatement = @"insert into device (id, type, friendly_name, ip_address, serial_number, model_number, mac_address, operating_system, notes, date_purchase, date_retire) 
-                                        values (@id, @type, @friendly_name, @ip_address, @serial_number, @model_number, @mac_address, @operating_system, @notes, @date_purchase, @date_retire);";
+                string sqlStatement = @"INSERT INTO device (id, type, friendly_name, ip_address, serial_number, model_number, mac_address, operating_system, notes, date_purchase, date_retire) 
+                                        VALUES (@id, @type, @friendly_name, @ip_address, @serial_number, @model_number, @mac_address, @operating_system, @notes, @date_purchase, @date_retire);";
 
                 // The connection string to be used to connect to the database. From the appsettings.json file.
                 string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
@@ -80,10 +80,9 @@ namespace AIM_Inventory.Controllers
                 DataAccess _data = new DataAccess();
 
                 // Use DataHandler's DataAccess class to save data to the specified database.
-                _data.SaveData(
+                _data.ExecuteStatement(
                     sqlStatement,                                   // sql string
-                    new
-                    {
+                    new {
                         id = model.ID,                            // model parameters
                         type = model.Type,
                         friendly_name = model.Friendly_Name,
@@ -162,7 +161,7 @@ namespace AIM_Inventory.Controllers
                 DataAccess _data = new DataAccess();
 
                 // Use DataHandler's DataAccess class to save data to the specified database.
-                _data.SaveData(
+                _data.ExecuteStatement(
                     sqlStatement,                                   // sql string
                     new
                     {
@@ -235,7 +234,7 @@ namespace AIM_Inventory.Controllers
             DataAccess _data = new DataAccess();
 
             // Use DataHandler's DataAccess class to delete data from the specified database.
-            _data.SaveData(
+            _data.ExecuteStatement(
                 sql,                        // sql string
                 new { id = model.ID },      // ID of the object to delete
                 connectionString);          // connection string
