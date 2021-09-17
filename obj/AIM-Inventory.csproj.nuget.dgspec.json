@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\anthonyri\\Code\\AIM-Inventory\\AIM-Inventory.csproj": {}
+    "C:\\Users\\lionelxk\\Documents\\AimInventoryProject\\AIM-Inventory.csproj": {}
   },
   "projects": {
-    "C:\\Users\\anthonyri\\Code\\AIM-Inventory\\AIM-Inventory.csproj": {
+    "C:\\Users\\lionelxk\\Documents\\AimInventoryProject\\AIM-Inventory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\anthonyri\\Code\\AIM-Inventory\\AIM-Inventory.csproj",
+        "projectUniqueName": "C:\\Users\\lionelxk\\Documents\\AimInventoryProject\\AIM-Inventory.csproj",
         "projectName": "AIM-Inventory",
-        "projectPath": "C:\\Users\\anthonyri\\Code\\AIM-Inventory\\AIM-Inventory.csproj",
-        "packagesPath": "C:\\Users\\anthonyri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\anthonyri\\Code\\AIM-Inventory\\obj\\",
+        "projectPath": "C:\\Users\\lionelxk\\Documents\\AimInventoryProject\\AIM-Inventory.csproj",
+        "packagesPath": "C:\\Users\\lionelxk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lionelxk\\Documents\\AimInventoryProject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\anthonyri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lionelxk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
