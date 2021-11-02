@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataHandler;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace AIM_Inventory
 {
@@ -27,6 +28,9 @@ namespace AIM_Inventory
             services.AddControllersWithViews();
             // This is our custom DataHandler class. The Singleton initialization keeps one instance of the class always up, so that it never has to be torn down or rebuilt (until the web server turns off, of course).
             services.AddSingleton<DataAccess>();
+
+            //This is the Authentication code. This adds authentication services.
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -28,6 +28,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Devices" asp-action="Index">Devices</a>
                         </li>
                     </ul>
+                    <!-- This is the code that shows which user is currently logged in -->
+                    <p class="nav navbar-text">Hello, @User.Identity.Name!</p>
                 </div>
             </div>
         </nav>
