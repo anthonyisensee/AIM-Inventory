@@ -22,13 +22,30 @@ namespace AIM_Inventory.Controllers
         private readonly IConfiguration _config;
 
         // Summary:
-        //  Displays a list of devices from a database.
+        //  Displays a page from a list of devices from a database (by default displays the first page).
+        //  Note that pages begin index at 1, not 0, since parameters are seen in the address bar user side.
+        // Parameters:
+        //  page: The page of data to show the user. Note that page is set to 1 by default, and that page indexing begins at 1.
         // Returns:
         //  A view with a list of devices.
-        public IActionResult Index()
+        public IActionResult Index(int? page = 1)   // Note that page is set to 1 by default, but can be modified.
         {
+            // Assign the view the information it needs to be able to ask for the next and previous page.
+            ViewData["LastPage"] = page - 1;
+            ViewData["NextPage"] = page + 1;
+
+            // Set data to inform the view if "Last Page" button should be shown.
+            if (page == 1) { ViewData["LastPageButtonShown"] = false; }     // If first page, don't show "Last Page" button.
+            else { ViewData["LastPageButtonShown"] = true; }                // If not first page, do show "Last Page" button.
+
+            // Define the maximum number of items displayed per page. Used by the query.
+            int items_per_page = 10;
+
+            // Calculate the offset (number of items to skip in the query) based on the page and limit. Used by the query.
+            int offset = ( (int)page - 1) * items_per_page;  // The page variable must be cast from "int?" to "int"
+
             // Initialize the SQL statement that is to be executed.
-            string sqlStatement = "SELECT * FROM `device`;";
+            string sqlStatement = "SELECT * FROM `device` LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
 
             // Retrieve the database connection string from the appsettings.json file.
             string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
@@ -42,6 +59,11 @@ namespace AIM_Inventory.Controllers
             // Populate the list of devices using our DataAccess logic.
             devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
 
+            // Set data to inform the view if "Next Page" button should be shown.
+            if ( devices.Count == items_per_page )              // If this page has a full list of devices...
+            { ViewData["NextPageButtonShown"] = true; }         // ...assume there is another page and display "NextPage" button.
+            else { ViewData["NextPageButtonShown"] = false; }   // Otherwise, don't display the next page button.
+            
             // Finally, return the default view (Index) to the user with a populated list of devices.
             return View("Index", devices);
         }

@@ -48,43 +48,62 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Friendly_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IP_Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Serial_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MAC_Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Operating_System)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortNotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Purchase)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Retire)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID}) 
-                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Friendly_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IP_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Serial_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAC_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Operating_System)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortNotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Purchase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Retire)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@* Only display action link for 'Previous Page'' when the controller specifies. *@
+@if (ViewData["LastPageButtonShown"].ToString() == "True")
+{
+    @Html.ActionLink("< Last Page", "Index", new { page = ViewData["LastPage"] })
+
+}
+
+@* If both next and last buttons are to be shown, show a separator.*@
+@if (ViewData["LastPageButtonShown"].ToString() == "True" && ViewData["NextPageButtonShown"].ToString() == "True")
+{
+    <text> - </text>
+}
+
+@* Only display action link for 'Next Page' when the controller specifies. *@
+@if (ViewData["NextPageButtonShown"].ToString() == "True")
+{
+    @Html.ActionLink("Next Page >", "Index", new { page = ViewData["NextPage"] })
+}
