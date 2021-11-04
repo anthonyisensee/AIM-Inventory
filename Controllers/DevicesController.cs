@@ -57,7 +57,8 @@ namespace AIM_Inventory.Controllers
             DataAccess _data = new DataAccess();
 
             // Check for a search string.
-            if (search == null)     // If there is no search string
+            // If there is no search string
+            if (search == null) 
             {
                 // Create the SQL statement that is to be executed to list paginated view of all devices.
                 string sqlStatement = "SELECT * FROM `device` LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
@@ -65,20 +66,25 @@ namespace AIM_Inventory.Controllers
                 // Populate the list of devices using our DataAccess logic.
                 devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
             }
-            else    // If there is a search string
+            // If there is a search string
+            else
             {
+                // Append "%" to beginning and end of search string to allow searching for entries that contain the search string
+                string preparedSearchString = "%" + search + "%";
+
                 // Create the SQL statement that is to be executed to list paginated view of all devices.
                 string sqlStatement = @"SELECT * FROM `device` 
-                                        WHERE `type` LIKE '%" + search + "%' " +
-                                        "OR `friendly_name` LIKE '%" + search + "%' " +
-                                        "OR `ip_address` LIKE '%" + search + "%' " +
-                                        "OR `serial_number` LIKE '%" + search + "%' " +
-                                        "OR `mac_address` LIKE '%" + search + "%' " +
-                                        "OR `notes` LIKE '%" + search + "%' " +
-                                        "LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
+                                        WHERE `type` LIKE @search
+                                        OR `friendly_name` LIKE @search
+                                        OR `ip_address` LIKE @search
+                                        OR `serial_number` LIKE @search
+                                        OR `mac_address` LIKE @search
+                                        OR `notes` LIKE @search
+                                        LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
 
-                // Populate the list of devices using our DataAccess logic.
-                devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
+                // Populate the list of devices using our DataAccess logic, feeding in sql statement and the prepared search
+                // string as a parameter. We avoid hard coding the string into the query to prevent malicious sql injection.
+                devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { search = preparedSearchString }, connectionString);
             }
 
             // Set data to inform the view if "Next Page" button should be shown.
