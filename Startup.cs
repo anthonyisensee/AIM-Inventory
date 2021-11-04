@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DataHandler;
 using Microsoft.AspNetCore.Server.IISIntegration;
 
@@ -29,7 +25,7 @@ namespace AIM_Inventory
             // This is our custom DataHandler class. The Singleton initialization keeps one instance of the class always up, so that it never has to be torn down or rebuilt (until the web server turns off, of course).
             services.AddSingleton<DataAccess>();
 
-            //This is the Authentication code. This adds authentication services.
+            // This is the Authentication code. This adds authentication services.
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
         }
 

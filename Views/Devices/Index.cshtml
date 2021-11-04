@@ -9,6 +9,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search for: <input type="text" name="search" value="@ViewData["SearchString"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> | 
+            <a asp-action="Index">Return to List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -71,7 +80,7 @@
                     @Html.DisplayFor(modelItem => item.Operating_System)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShortNotes)
+                    @Html.DisplayFor(modelItem => item.Notes)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date_Purchase)
@@ -89,10 +98,10 @@
     </tbody>
 </table>
 
-@* Only display action link for 'Previous Page'' when the controller specifies. *@
+@* Only display action link for 'Previous Page'' when the controller specifies. Include a search string if there is one. *@
 @if (ViewData["LastPageButtonShown"].ToString() == "True")
 {
-    @Html.ActionLink("< Last Page", "Index", new { page = ViewData["LastPage"] })
+    @Html.ActionLink("< Last Page", "Index", new { search = ViewData["SearchString"], page = ViewData["LastPage"] })
 
 }
 
@@ -102,8 +111,8 @@
     <text> - </text>
 }
 
-@* Only display action link for 'Next Page' when the controller specifies. *@
+@* Only display action link for 'Next Page' when the controller specifies. Include a search string if there is one. *@
 @if (ViewData["NextPageButtonShown"].ToString() == "True")
 {
-    @Html.ActionLink("Next Page >", "Index", new { page = ViewData["NextPage"] })
+    @Html.ActionLink("Next Page >", "Index", new { search = ViewData["SearchString"], page = ViewData["NextPage"] })
 }

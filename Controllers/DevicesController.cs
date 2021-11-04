@@ -28,8 +28,11 @@ namespace AIM_Inventory.Controllers
         //  page: The page of data to show the user. Note that page is set to 1 by default, and that page indexing begins at 1.
         // Returns:
         //  A view with a list of devices.
-        public IActionResult Index(int? page = 1)   // Note that page is set to 1 by default, but can be modified.
+        public IActionResult Index(string search = null, int? page = 1)   // Note that page is set to 1 by default, but can be modified.
         {
+            // Send the search string to the view so that it may use it to load further pages of the search.
+            ViewData["SearchString"] = search;
+
             // Assign the view the information it needs to be able to ask for the next and previous page.
             ViewData["LastPage"] = page - 1;
             ViewData["NextPage"] = page + 1;
@@ -39,13 +42,10 @@ namespace AIM_Inventory.Controllers
             else { ViewData["LastPageButtonShown"] = true; }                // If not first page, do show "Last Page" button.
 
             // Define the maximum number of items displayed per page. Used by the query.
-            int items_per_page = 10;
+            int items_per_page = 5;
 
             // Calculate the offset (number of items to skip in the query) based on the page and limit. Used by the query.
             int offset = ( (int)page - 1) * items_per_page;  // The page variable must be cast from "int?" to "int"
-
-            // Initialize the SQL statement that is to be executed.
-            string sqlStatement = "SELECT * FROM `device` LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
 
             // Retrieve the database connection string from the appsettings.json file.
             string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
@@ -56,8 +56,30 @@ namespace AIM_Inventory.Controllers
             // Create an instance of our DataAccess class so that we may use its functionality to populate a list with data.
             DataAccess _data = new DataAccess();
 
-            // Populate the list of devices using our DataAccess logic.
-            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
+            // Check for a search string.
+            if (search == null)     // If there is no search string
+            {
+                // Create the SQL statement that is to be executed to list paginated view of all devices.
+                string sqlStatement = "SELECT * FROM `device` LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
+
+                // Populate the list of devices using our DataAccess logic.
+                devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
+            }
+            else    // If there is a search string
+            {
+                // Create the SQL statement that is to be executed to list paginated view of all devices.
+                string sqlStatement = @"SELECT * FROM `device` 
+                                        WHERE `type` LIKE '%" + search + "%' " +
+                                        "OR `friendly_name` LIKE '%" + search + "%' " +
+                                        "OR `ip_address` LIKE '%" + search + "%' " +
+                                        "OR `serial_number` LIKE '%" + search + "%' " +
+                                        "OR `mac_address` LIKE '%" + search + "%' " +
+                                        "OR `notes` LIKE '%" + search + "%' " +
+                                        "LIMIT " + items_per_page.ToString() + " OFFSET " + offset.ToString() + ";";
+
+                // Populate the list of devices using our DataAccess logic.
+                devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { }, connectionString);
+            }
 
             // Set data to inform the view if "Next Page" button should be shown.
             if ( devices.Count == items_per_page )              // If this page has a full list of devices...
