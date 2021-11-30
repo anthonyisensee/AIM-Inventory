@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "View";
 }
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you ABSOLUTELY sure you want to delete this?</h3>
 <div>
     @*<h4>Device</h4>*@
     <hr />
@@ -70,15 +70,9 @@
         </dd>
     </dl>
 
-    @Html.ActionLink("Delete", "ConfirmDelete", new { id = this.Model.ID })
-
-    @*<form asp-action="ConfirmDelete">
-        <input type="number" id=""
-        <input type="submit" value="Delete" class="btn btn-danger" />
+    <form asp-action="ConfirmDelete">
+        <input type="submit" value="Delete Forever" class="btn btn-danger" />
     </form>
-    <form asp-controller="DevicesController" asp-action="ConfirmDelete" method="post">
-
-    </form>*@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>

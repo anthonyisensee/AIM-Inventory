@@ -886,3 +886,4 @@ C:\Users\lionelxk\Documents\AimInventoryProject\obj\Debug\net5.0\AIM-Inventory.d
 C:\Users\lionelxk\Documents\AimInventoryProject\obj\Debug\net5.0\ref\AIM-Inventory.dll
 C:\Users\lionelxk\Documents\AimInventoryProject\obj\Debug\net5.0\AIM-Inventory.pdb
 C:\Users\lionelxk\Documents\AimInventoryProject\obj\Debug\net5.0\AIM-Inventory.genruntimeconfig.cache
+C:\Users\anthonyri\Code\AIM-Inventory\obj\Debug\net5.0\Razor\Views\Devices\ConfirmDelete.cshtml.g.cs

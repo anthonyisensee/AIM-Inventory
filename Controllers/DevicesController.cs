@@ -239,12 +239,12 @@ namespace AIM_Inventory.Controllers
         }
 
         // Summary:
-        //  Deletes an entry from the device table based on a given ID.
+        //  Shows item details with a link to delete device.
         // Parameters:
-        //  id: an integer representing the ID of the object to be deleted.
+        //  id: an integer representing the ID of the object that may be deleted.
         // Returns:
-        //  The list view.
-        public IActionResult Delete(int? id)    // Note that the id integer must be optional (thus the "?").
+        //  The Delete view.
+        public IActionResult Delete(int? id)
         {
             // Initialize the SQL statement that is to be executed.
             string sqlStatement = "select * from device where id = @id;";
@@ -266,15 +266,55 @@ namespace AIM_Inventory.Controllers
         }
 
         // Summary:
-        //  Retrieves a single row from the database and returns a view with the row's details.
+        //  Redirects the user from the delete page to the delete confirmation page.
         // Parameters:
-        //  id: The id of the device to locate.
+        //  model: The model defining the device that is to be deleted.
         // Returns:
-        //  A view with the information of the specific device.
+        //  A redirection to the delete confirmation page.
         [HttpPost]
         public IActionResult Delete(DeviceModel model)
         {
-            // Define the necessary sql string with parameters.
+            // Redirects to confirm delete page providing the model's ID.
+            return RedirectToAction("ConfirmDelete", model.ID);
+        }
+
+        // Summary:
+        //  Returns a view of the device to be confirmed for deletion. View contains a final confirm delete button.
+        // Parameters:
+        //  id: an integer representing the ID of the object to be deleted.
+        // Returns:
+        //  The ConfirmDelete view which contains a button to confirm and finalize deletion.
+        public IActionResult ConfirmDelete(int? id)    // Note that the id integer must be optional (thus the "?").
+        {            
+            // Initialize the SQL statement that is to be executed.
+            string sqlStatement = "select * from device where id = @id;";
+
+            // Retrieve the database connection string from the appsettings.json file.
+            string connectionString = ConfigurationExtensions.GetConnectionString(_config, "default");
+
+            // Initialize a list to store populated device models inside of.
+            List<DeviceModel> devices = new List<DeviceModel>();
+
+            // Create an instance of our DataAccess class so that we may use its functionality to populate a list with data.
+            DataAccess _data = new DataAccess();
+
+            // Populate the list of devices using our DataAccess logic.
+            devices = _data.LoadData<DeviceModel, dynamic>(sqlStatement, new { id = id }, connectionString);
+
+            // Return the ConfirmDelete view with the first device in the device list.
+            return View("ConfirmDelete", devices[0]);
+        }
+
+        // Summary:
+        //  Deletes a device from the database upon user confirmation.
+        // Parameters:
+        //  model: The detailed model of the device that is to be deleted.
+        // Returns:
+        //  A redirection to the Devices Index.
+        [HttpPost]
+        public IActionResult ConfirmDelete(DeviceModel model)
+        {            
+            // Define the necessary sql string for deletion with parameters.
             string sql = "delete from device where id = @id;";
 
             // The connection string to be used to connect to the database. From the appsettings.json file.
@@ -289,9 +329,7 @@ namespace AIM_Inventory.Controllers
                 new { id = model.ID },      // ID of the object to delete
                 connectionString);          // connection string
 
-            //Returns the "Index" view.The list should reload and be updated.
-            // We must specify that we are redirecting to the "Index" since there is no "Delete" view.
-            // Also note that the RedirectToAction is necessary instead of just View("Index");
+            //Returns the "Index" view. New list reflecting deletion will load.
             return RedirectToAction("Index");
         }
     }
