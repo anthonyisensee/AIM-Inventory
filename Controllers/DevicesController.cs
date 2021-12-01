@@ -42,7 +42,7 @@ namespace AIM_Inventory.Controllers
             else { ViewData["LastPageButtonShown"] = true; }                // If not first page, do show "Last Page" button.
 
             // Define the maximum number of items displayed per page. Used by the query.
-            int items_per_page = 5;
+            int items_per_page = 50;
 
             // Calculate the offset (number of items to skip in the query) based on the page and limit. Used by the query.
             int offset = ( (int)page - 1) * items_per_page;  // The page variable must be cast from "int?" to "int"
