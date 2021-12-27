@@ -18,4 +18,8 @@
     <PackageReference Include="MySql.Data" Version="8.0.26" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\Views\_Layout\AIM_NAD_Logo.jpg" />
+  </ItemGroup>
+
 </Project>
