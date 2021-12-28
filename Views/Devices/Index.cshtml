@@ -4,17 +4,20 @@
     ViewData["Title"] = "Device List";
 }
 
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>*@
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Search for: <input type="text" name="search" value="@ViewData["SearchString"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> | 
-            <a asp-action="Index">Return to List</a>
+            @* Show create device button. *@
+            <a asp-action="Create" type="button" class="btn btn-secondary">Create New Device</a>
+            @* Show search options. *@
+            Search for:
+            <input type="text" name="search" value="@ViewData["SearchString"]" />
+            <input type="submit" value="Search" class="btn btn-secondary" /> |
+            @* Show go back to full list option. *@
+            <a asp-action="Index" type="button" class="btn btn-outline-secondary">Return to List</a>
         </p>
     </div>
 </form>
@@ -51,7 +54,31 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date_Retire)
             </th>
-            <th></th>
+            <th>
+                @* Show page navigation. *@
+                <ul class="pagination justify-content-end">
+                    @* Only display action link for 'Previous Page'' when the controller specifies. Include a search string if there is one. *@
+                    @if (ViewData["LastPageButtonShown"].ToString() == "True")
+                    {
+                        <li class="page-item">@Html.ActionLink("<", "Index", new { search = ViewData["SearchString"], page = ViewData["LastPage"] }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item disabled"><a class="page-link">&lt</a></li>
+                    }
+                    @* Only display action link for 'Next Page' when the controller specifies. Include a search string if there is one. *@
+                    @if (ViewData["NextPageButtonShown"].ToString() == "True")
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(">", "Index", new { search = ViewData["SearchString"], page = ViewData["NextPage"] }, new { @class = "page-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item disabled"><a class="page-link">&gt</a></li>
+                    }
+                </ul>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -89,30 +116,37 @@
                     @Html.DisplayFor(modelItem => item.Date_Retire)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-outline-secondary  btn-margin", @type = "button" })
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-outline-danger btn-margin", @type = "button" })
+                    </p>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-@* Only display action link for 'Previous Page'' when the controller specifies. Include a search string if there is one. *@
-@if (ViewData["LastPageButtonShown"].ToString() == "True")
-{
-    @Html.ActionLink("< Last Page", "Index", new { search = ViewData["SearchString"], page = ViewData["LastPage"] })
-
-}
-
-@* If both next and last buttons are to be shown, show a separator.*@
-@if (ViewData["LastPageButtonShown"].ToString() == "True" && ViewData["NextPageButtonShown"].ToString() == "True")
-{
-    <text> - </text>
-}
-
-@* Only display action link for 'Next Page' when the controller specifies. Include a search string if there is one. *@
-@if (ViewData["NextPageButtonShown"].ToString() == "True")
-{
-    @Html.ActionLink("Next Page >", "Index", new { search = ViewData["SearchString"], page = ViewData["NextPage"] })
-}
+@* Show page navigation. *@
+<ul class="pagination justify-content-end">
+    @* Only display action link for 'Previous Page'' when the controller specifies. Include a search string if there is one. *@
+    @if (ViewData["LastPageButtonShown"].ToString() == "True")
+    {
+        <li class="page-item">@Html.ActionLink("Previous", "Index", new { search = ViewData["SearchString"], page = ViewData["LastPage"] }, new { @class = "page-link" })</li>
+    }
+    else
+    {
+        <li class="page-item disabled"><a class="page-link">Previous</a></li>
+    }
+    @* Only display action link for 'Next Page' when the controller specifies. Include a search string if there is one. *@
+    @if (ViewData["NextPageButtonShown"].ToString() == "True")
+    {
+        <li class="page-item">
+            @Html.ActionLink("Next", "Index", new { search = ViewData["SearchString"], page = ViewData["NextPage"] }, new { @class = "page-link" })
+        </li>
+    }
+    else
+    {
+        <li class="page-item disabled"><a class="page-link">Next</a></li>
+    }
+</ul>

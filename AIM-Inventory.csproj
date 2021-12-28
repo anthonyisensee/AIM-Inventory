@@ -19,7 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\Views\_Layout\AIM_NAD_Logo.jpg" />
+    <None Include="wwwroot\Images\Branding\AIM_NAD_Logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Views\" />
   </ItemGroup>
 
 </Project>

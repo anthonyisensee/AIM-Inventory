@@ -5,16 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AIM Inventory</title>
+    @* Use bootstrap styelsheet for default web styling. *@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @* Site stylesheet is read last making anything here the default. *@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom text-white box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom text-white box-shadow mb-3" style="background-color: #01395E">
             <div class="container">
                 <!-- Image and site name. -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/Images/Views/_Layout/symbol_square-transparent.png" alt="AIM NAD Logo" width="50" height="50" style="padding:5px;" />
+                    <img src="~/Images/Branding/symbol_square-transparent.png" alt="Seventh-Day Adventist flame logo" width="50" height="50" style="padding:5px;" />
                     AIM Inventory
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"

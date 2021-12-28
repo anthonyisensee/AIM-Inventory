@@ -71,9 +71,10 @@
     </dl>
 
     <form asp-action="ConfirmDelete">
-        <input type="submit" value="Delete Forever" class="btn btn-danger" />
+        <input type="submit" value="Delete Forever" class="btn btn-danger btn-margin" />
+        (This cannot be undone!)
     </form>
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" type="button" class="btn btn-outline-secondary btn-margin">Back to List</a>
     </div>
 </div>
