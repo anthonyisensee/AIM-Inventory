@@ -14,7 +14,7 @@
             <div class="container">
                 <!-- Image and site name. -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="Images/Views/_Layout/symbol_square-transparent.png" alt="AIM NAD Logo" width="50" height="50" style="padding:5px;" />
+                    <img src="~/Images/Views/_Layout/symbol_square-transparent.png" alt="AIM NAD Logo" width="50" height="50" style="padding:5px;" />
                     AIM Inventory
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -40,7 +40,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()   <!-- Renders the body of the content (a view) here. -->
+            @RenderBody()   <!-- Renders the body of the content here. Generally a view is rendered. -->
         </main>
     </div>
 
